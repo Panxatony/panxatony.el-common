@@ -1,0 +1,29 @@
+---
+# tasks file for panxatony.el-common
+
+- name: Install EPEL repo.
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+  register: result
+  until: '"failed" not in result'
+  retries: 5
+  delay: 10
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "{{ epel_repo_gpg_key_url }}"
+    state: present
+
+# install packages common to all machines
+
+- name: Install SELinux python package needed by ansible
+  sudo: yes
+  yum: name={{ item }} state=present
+  with_items:
+    - libselinux-python
+    - python-passlib
+
+# selinux
+- name: Ensure SELinux is enabled in `enforcing` mode.
+  selinux: policy=targeted state=enforcing
