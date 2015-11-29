@@ -9,11 +9,15 @@
   until: '"failed" not in result'
   retries: 5
   delay: 10
+  tags:
+    - base
 
 - name: Import EPEL GPG key.
   rpm_key:
     key: "{{ epel_repo_gpg_key_url }}"
     state: present
+  tags:
+    - base
 
 # install packages common to all machines
 
@@ -23,7 +27,11 @@
   with_items:
     - libselinux-python
     - python-passlib
+  tags:
+    - base
 
 # selinux
 - name: Ensure SELinux is enabled in `enforcing` mode.
   selinux: policy=targeted state=enforcing
+tags:
+    - base
