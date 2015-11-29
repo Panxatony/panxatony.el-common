@@ -33,5 +33,5 @@
 # selinux
 - name: Ensure SELinux is enabled in `enforcing` mode.
   selinux: policy=targeted state=enforcing
-tags:
+  tags:
     - base
