@@ -26,11 +26,11 @@
 # install packages common to all machines
 
 - name: Install SELinux python package needed by ansible
-  sudo: yes
   yum: name={{ item }} state=present
   with_items:
     - libselinux-python
     - python-passlib
+    - libsemanage-python
   become: yes
   become_user: root
   tags:
