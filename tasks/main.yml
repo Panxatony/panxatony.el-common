@@ -37,8 +37,8 @@
     - base
 
 # selinux
-- name: Ensure SELinux is enabled in `enforcing` mode.
-  selinux: policy=targeted state=enforcing
+- name: Ensure SELinux is configured.
+  selinux: policy=targeted state={{ selinux_state }}
   become: yes
   become_user: root
   tags:
